@@ -1,7 +1,7 @@
 # Welcome to IPU-Engineering-Notes
 
-Our open source community helps in gathering notes for students studying in GGSIPU, or whenever someone gets trapped, they can refer to the notes. 
-So, we are developing a repository and trying to implementat it for all semesters .
+Our open source community helps in gathering notes for students studying in GGSIPU, or whenever someone gets confused, they can refer to the notes or study materials . 
+So, we are developing a repository and trying to implement it for all semesters .
 ## Steps to follow :scroll:
 
 ### 1. Fork it :fork_and_knife:
