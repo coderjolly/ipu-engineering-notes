@@ -1,0 +1,720 @@
+{\rtf1\ansi\ansicpg1252\deff0{\fonttbl{\f0\froman\fcharset0 Times New Roman;}{\f1\fswiss\fcharset0 Courier New;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2509;}\viewkind4\uc1\pard\sb100\sa100\lang1033\f0\fs24 The term \i network programming\i0  refers to writing programs that execute across multiple devices (computers), in which the devices are all connected to each other using a network.\par
+The java.net package of the J2SE APIs contains a collection of classes and interfaces that provide the low-level communication details, allowing you to write programs that focus on solving the problem at hand.\par
+The java.net package provides support for the two common network protocols:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\b TCP:\b0  TCP stands for Transmission Control Protocol, which allows for reliable communication between two applications. TCP is typically used over the Internet Protocol, which is referred to as TCP/IP.\par
+\b{\pntext\f3\'B7\tab}UDP:\b0  UDP stands for User Datagram Protocol, a connection-less protocol that allows for packets of data to be transmitted between applications.\par
+\pard\sb100\sa100 This tutorial gives good understanding on the following two subjects:\par
+\pard\fi-360\li720\sb100\sa100\tx720\b Socket Programming\b0 : This is most widely used concept in Networking and it has been explained in very detail.\par
+\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Socket Programming:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Sockets provide the communication mechanism between two computers using TCP. A client program creates a socket on its end of the communication and attempts to connect that socket to a server.\par
+When the connection is made, the server creates a socket object on its end of the communication. The client and server can now communicate by writing to and reading from the socket.\par
+The java.net.Socket class represents a socket, and the java.net.ServerSocket class provides a mechanism for the server program to listen for clients and establish connections with them.\par
+The following steps occur when establishing a TCP connection between two computers using sockets:\par
+\pard\fi-360\li720\sb100\sa100\tx720 The server instantiates a ServerSocket object, denoting which port number communication is to occur on.\par
+The server invokes the accept() method of the ServerSocket class. This method waits until a client connects to the server on the given port.\par
+After the server is waiting, a client instantiates a Socket object, specifying the server name and port number to connect to.\par
+The constructor of the Socket class attempts to connect the client to the specified server and port number. If communication is established, the client now has a Socket object capable of communicating with the server.\par
+On the server side, the accept() method returns a reference to a new socket on the server that is connected to the client's socket.\par
+\pard\sb100\sa100 After the connections are established, communication can occur using I/O streams. Each socket has both an OutputStream and an InputStream. The client's OutputStream is connected to the server's InputStream, and the client's InputStream is connected to the server's OutputStream.\par
+TCP is a twoway communication protocol, so data can be sent across both streams at the same time. There are following usefull classes providing complete set of methods to implement sockets.\par
+\pard\keepn\sb100\sa100\b\fs36 ServerSocket Class Methods:\par
+\pard\sb100\sa100\b0\fs24 The \b java.net.ServerSocket\b0  class is used by server applications to obtain a port and listen for client requests\par
+The ServerSocket class has four constructors:\par
+\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\qc\b SN\cell Methods with Description\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\b0 1\cell\b public ServerSocket(int port) throws IOException\b0\line Attempts to create a server socket bound to the specified port. An exception occurs if the port is already bound by another application.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 2\cell\b public ServerSocket(int port, int backlog) throws IOException\b0\line Similar to the previous constructor, the backlog parameter specifies how many incoming clients to store in a wait queue.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 3\cell\b public ServerSocket(int port, int backlog, InetAddress address) throws IOException\b0\line Similar to the previous constructor, the InetAddress parameter specifies the local IP address to bind to. The InetAddress is used for servers that may have multiple IP addresses, allowing the server to specify which of its IP addresses to accept client requests on\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 4\cell\b public ServerSocket() throws IOException\b0\line Creates an unbound server socket. When using this constructor, use the bind() method when you are ready to bind the server socket\cell\row\pard\sb100\sa100 If the ServerSocket constructor does not throw an exception, it means that your application has successfully bound to the specified port and is ready for client requests.\par
+Here are some of the common methods of the ServerSocket class:\par
+\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\qc\b SN\cell Methods with Description\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\b0 1\cell\b public int getLocalPort()\b0\line Returns the port that the server socket is listening on. This method is useful if you passed in 0 as the port number in a constructor and let the server find a port for you.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 2\cell\b public Socket accept() throws IOException\b0\line Waits for an incoming client. This method blocks until either a client connects to the server on the specified port or the socket times out, assuming that the time-out value has been set using the setSoTimeout() method. Otherwise, this method blocks indefinitely\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 3\cell\b public void setSoTimeout(int timeout)\b0\line Sets the time-out value for how long the server socket waits for a client during the accept().\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 4\cell\b public void bind(SocketAddress host, int backlog)\b0\line Binds the socket to the specified server and port in the SocketAddress object. Use this method if you instantiated the ServerSocket using the no-argument constructor.\cell\row\pard\sb100\sa100 When the ServerSocket invokes accept(), the method does not return until a client connects. After a client does connect, the ServerSocket creates a new Socket on an unspecified port and returns a reference to this new Socket. A TCP connection now exists between the client and server, and communication can begin.\par
+\pard\keepn\sb100\sa100\b\fs36 Socket Class Methods:\par
+\pard\sb100\sa100\b0\fs24 The \b java.net.Socket\b0  class represents the socket that both the client and server use to communicate with each other. The client obtains a Socket object by instantiating one, whereas the server obtains a Socket object from the return value of the accept() method.\par
+The Socket class has five constructors that a client uses to connect to a server:\par
+\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\qc\b SN\cell Methods with Description\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\b0 1\cell\b public Socket(String host, int port) throws UnknownHostException, IOException.\b0\line This method attempts to connect to the specified server at the specified port. If this constructor does not throw an exception, the connection is successful and the client is connected to the server.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 2\cell\b public Socket(InetAddress host, int port) throws IOException\b0\line This method is identical to the previous constructor, except that the host is denoted by an InetAddress object.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 3\cell\b public Socket(String host, int port, InetAddress localAddress, int localPort) throws IOException.\b0\line Connects to the specified host and port, creating a socket on the local host at the specified address and port.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 4\cell\b public Socket(InetAddress host, int port, InetAddress localAddress, int localPort) throws IOException.\b0\line This method is identical to the previous constructor, except that the host is denoted by an InetAddress object instead of a String\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 5\cell\b public Socket()\b0\line Creates an unconnected socket. Use the connect() method to connect this socket to a server.\cell\row\pard\sb100\sa100 When the Socket constructor returns, it does not simply instantiate a Socket object but it actually attempts to connect to the specified server and port.\par
+Some methods of interest in the Socket class are listed here. Notice that both the client and server have a Socket object, so these methods can be invoked by both the client and server.\par
+\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\qc\b SN\cell Methods with Description\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\b0 1\cell\b public void connect(SocketAddress host, int timeout) throws IOException\b0\line This method connects the socket to the specified host. This method is needed only when you instantiated the Socket using the no-argument constructor.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 2\cell\b public InetAddress getInetAddress()\b0\line This method returns the address of the other computer that this socket is connected to.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 3\cell\b public int getPort()\b0\line Returns the port the socket is bound to on the remote machine.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 4\cell\b public int getLocalPort()\b0\line Returns the port the socket is bound to on the local machine.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 5\cell\b public SocketAddress getRemoteSocketAddress()\b0\line Returns the address of the remote socket.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 6\cell\b public InputStream getInputStream() throws IOException\b0\line Returns the input stream of the socket. The input stream is connected to the output stream of the remote socket.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 7\cell\b public OutputStream getOutputStream() throws IOException\b0\line Returns the output stream of the socket. The output stream is connected to the input stream of the remote socket\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 8\cell\b public void close() throws IOException\b0\line Closes the socket, which makes this Socket object no longer capable of connecting again to any server\cell\row\pard\keepn\sb100\sa100\b\fs36 InetAddress Class Methods:\par
+\pard\sb100\sa100\b0\fs24 This class represents an Internet Protocol (IP) address. Here are following usefull methods which you would need while doing socket programming:\par
+\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\qc\b SN\cell Methods with Description\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100\b0 1\cell\b static InetAddress getByAddress(byte[] addr)\b0\line Returns an InetAddress object given the raw IP address .\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 2\cell\b static InetAddress getByAddress(String host, byte[] addr)\b0\line Create an InetAddress based on the provided host name and IP address.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 3\cell\b static InetAddress getByName(String host)\b0\line Determines the IP address of a host, given the host's name.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 4\cell\b String getHostAddress() \b0\line Returns the IP address string in textual presentation.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 5\cell\b String getHostName() \b0\line Gets the host name for this IP address.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 6\cell\b static InetAddress InetAddress getLocalHost()\b0\line Returns the local host.\cell\row\trowd\trgaph75\trpaddl75\trpaddr75\trpaddfl3\trpaddfr3
+\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx468\clvertalc\clbrdrl\brdrw15\brdrs\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs \cellx9360\pard\intbl\sb100\sa100 7\cell\b String toString()\b0\line Converts this IP address to a String.\cell\row\pard\keepn\sb100\sa100\kerning36\b\fs48 Socket Client Example:\par
+\pard\sb100\sa100\kerning0\b0\fs24 The following GreetingClient is a client program that connects to a server by using a socket and sends a greeting, and then waits for a response.\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 // File Name GreetingClient.java\par
+\par
+import java.net.*;\par
+import java.io.*;\par
+\par
+public class GreetingClient\par
+\{\par
+   public static void main(String [] args)\par
+   \{\par
+      String serverName = args[0];\par
+      int port = Integer.parseInt(args[1]);\par
+      try\par
+      \{\par
+         System.out.println("Connecting to " + serverName\par
+                             + " on port " + port);\par
+         Socket client = new Socket(serverName, port);\par
+         System.out.println("Just connected to "\par
+                      + client.getRemoteSocketAddress());\par
+         OutputStream outToServer = client.getOutputStream();\par
+         DataOutputStream out =\par
+                       new DataOutputStream(outToServer);\par
+\par
+         out.writeUTF("Hello from "\par
+                      + client.getLocalSocketAddress());\par
+         InputStream inFromServer = client.getInputStream();\par
+         DataInputStream in =\par
+                        new DataInputStream(inFromServer);\par
+         System.out.println("Server says " + in.readUTF());\par
+         client.close();\par
+      \}catch(IOException e)\par
+      \{\par
+         e.printStackTrace();\par
+      \}\par
+   \}\par
+\}\cell\row\pard\keepn\sb100\sa100\kerning36\b\f0\fs48 Socket Server Example:\par
+\pard\sb100\sa100\kerning0\b0\fs24 The following GreetingServer program is an example of a server application that uses the Socket class to listen for clients on a port number specified by a command-line argument:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 b// File Name GreetingServer.java\par
+\par
+import java.net.*;\par
+import java.io.*;\par
+\par
+public class GreetingServer extends Thread\par
+\{\par
+   private ServerSocket serverSocket;\par
+   \par
+   public GreetingServer(int port) throws IOException\par
+   \{\par
+      serverSocket = new ServerSocket(port);\par
+      serverSocket.setSoTimeout(10000);\par
+   \}\par
+\par
+   public void run()\par
+   \{\par
+      while(true)\par
+      \{\par
+         try\par
+         \{\par
+            System.out.println("Waiting for client on port " +\par
+            serverSocket.getLocalPort() + "...");\par
+            Socket server = serverSocket.accept();\par
+            System.out.println("Just connected to "\par
+                  + server.getRemoteSocketAddress());\par
+            DataInputStream in =\par
+                  new DataInputStream(server.getInputStream());\par
+            System.out.println(in.readUTF());\par
+            DataOutputStream out =\par
+                 new DataOutputStream(server.getOutputStream());\par
+            out.writeUTF("Thank you for connecting to "\par
+              + server.getLocalSocketAddress() + "\\nGoodbye!");\par
+            server.close();\par
+         \}catch(SocketTimeoutException s)\par
+         \{\par
+            System.out.println("Socket timed out!");\par
+            break;\par
+         \}catch(IOException e)\par
+         \{\par
+            e.printStackTrace();\par
+            break;\par
+         \}\par
+      \}\par
+   \}\par
+   public static void main(String [] args)\par
+   \{\par
+      int port = Integer.parseInt(args[0]);\par
+      try\par
+      \{\par
+         Thread t = new GreetingServer(port);\par
+         t.start();\par
+      \}catch(IOException e)\par
+      \{\par
+         e.printStackTrace();\par
+      \}\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Compile client and server and then start server as follows:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx5600\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 $ java GreetingServer 6066\par
+Waiting for client on port 6066...\cell\row\pard\sb100\sa100\f0\fs24 Check client program as follows:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx8960\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 $ java GreetingClient localhost 6066\par
+Connecting to localhost on port 6066\par
+Just connected to localhost/127.0.0.1:6066\par
+Server says Thank you for connecting to /127.0.0.1:6066\par
+Goodbye!\cell\row\pard\sb100\sa100\f0\fs24\par
+\b Copyright \'a9 tutorialspoint.com\b0\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Java - Sending Email\par
+\pard\sb100\sa100\kerning0\b0\fs24{\field{\*\fldinst{HYPERLINK "/java/java_networking.htm"HYPERLINK "/java/java_networking.htm"HYPERLINK "/java/java_multithreading.htm"HYPERLINK "/java/java_multithreading.htm"}}{\fldrslt{}}}\f0\fs24\line\line\par
+To send an email using your Java Application is simple enough but to start with you should have \b JavaMail API\b0  and \b Java Activation Framework (JAF)\b0  installed on your machine.\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100 You can download latest version of {\field{\*\fldinst{HYPERLINK "http://java.sun.com/products/javamail/"}}{\fldrslt{\cf1\ul JavaMail (Version 1.2)}}}\cf0\ulnone\f0\fs24  from Java's standard website.\par
+{\pntext\f3\'B7\tab}You can download latest version of {\field{\*\fldinst{HYPERLINK "http://java.sun.com/products/javabeans/glasgow/jaf.html"}}{\fldrslt{\cf1\ul JAF (Version 1.1.1)}}}\cf0\ulnone\f0\fs24  from Java's standard website.\par
+\pard\sb100\sa100 Download and unzip these files, in the newly created top level directories you will find a number of jar files for both the applications. You need to add \b mail.jar\b0  and \b activation.jar\b0  files in your CLASSPATH.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Send a Simple Email:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Here is an example to send a simple email from your machine. Here it is assumed that your \b localhost\b0  is connected to the internet and capable enough to send an email.\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 // File Name SendEmail.java\par
+\par
+import java.util.*;\par
+import javax.mail.*;\par
+import javax.mail.internet.*;\par
+import javax.activation.*;\par
+\par
+public class SendEmail\par
+\{\par
+   public static void main(String [] args)\par
+   \{\par
+      \par
+      // Recipient's email ID needs to be mentioned.\par
+      String to = "abcd@gmail.com";\par
+\par
+      // Sender's email ID needs to be mentioned\par
+      String from = "web@gmail.com";\par
+\par
+      // Assuming you are sending email from localhost\par
+      String host = "localhost";\par
+\par
+      // Get system properties\par
+      Properties properties = System.getProperties();\par
+\par
+      // Setup mail server\par
+      properties.setProperty("mail.smtp.host", host);\par
+\par
+      // Get the default Session object.\par
+      Session session = Session.getDefaultInstance(properties);\par
+\par
+      try\{\par
+         // Create a default MimeMessage object.\par
+         MimeMessage message = new MimeMessage(session);\par
+\par
+         // Set From: header field of the header.\par
+         message.setFrom(new InternetAddress(from));\par
+\par
+         // Set To: header field of the header.\par
+         message.addRecipient(Message.RecipientType.TO,\par
+                                  new InternetAddress(to));\par
+\par
+         // Set Subject: header field\par
+         message.setSubject("This is the Subject Line!");\par
+\par
+         // Now set the actual message\par
+         message.setText("This is actual message");\par
+\par
+         // Send message\par
+         Transport.send(message);\par
+         System.out.println("Sent message successfully....");\par
+      \}catch (MessagingException mex) \{\par
+         mex.printStackTrace();\par
+      \}\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Compile and run this program to send a simple email:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx4800\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 $ java SendEmail\par
+Sent message successfully....\cell\row\pard\sb100\sa100\f0\fs24 If you want to send an email to multiple recipients then following methods would be used to specify multiple email IDs:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx7680\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 void addRecipients(Message.RecipientType type, \par
+                   Address[] addresses)\par
+throws MessagingException\cell\row\pard\sb100\sa100\f0\fs24 Here is the description of the parameters:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\b type:\b0  This would be set to TO, CC or BCC. Here CC represents Carbon Copy and BCC represents Black Carbon Copy. Example \i Message.RecipientType.TO\i0\par
+\b{\pntext\f3\'B7\tab}addresses:\b0  This is the array of email ID. You would need to use InternetAddress() method while specifying email IDs\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Send an HTML Email:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Here is an example to send an HTML email from your machine. Here it is assumed that your \b localhost\b0  is connected to the internet and capable enough to send an email.\par
+This example is very similar to previous one, except here we are using setContent() method to set content whose second argument is "text/html" to specify that the HTML content is included in the message.\par
+Using this example, you can send as big as HTML content you like.\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 // File Name SendHTMLEmail.java\par
+\par
+import java.util.*;\par
+import javax.mail.*;\par
+import javax.mail.internet.*;\par
+import javax.activation.*;\par
+\par
+public class SendHTMLEmail\par
+\{\par
+   public static void main(String [] args)\par
+   \{\par
+      \par
+      // Recipient's email ID needs to be mentioned.\par
+      String to = "abcd@gmail.com";\par
+\par
+      // Sender's email ID needs to be mentioned\par
+      String from = "web@gmail.com";\par
+\par
+      // Assuming you are sending email from localhost\par
+      String host = "localhost";\par
+\par
+      // Get system properties\par
+      Properties properties = System.getProperties();\par
+\par
+      // Setup mail server\par
+      properties.setProperty("mail.smtp.host", host);\par
+\par
+      // Get the default Session object.\par
+      Session session = Session.getDefaultInstance(properties);\par
+\par
+      try\{\par
+         // Create a default MimeMessage object.\par
+         MimeMessage message = new MimeMessage(session);\par
+\par
+         // Set From: header field of the header.\par
+         message.setFrom(new InternetAddress(from));\par
+\par
+         // Set To: header field of the header.\par
+         message.addRecipient(Message.RecipientType.TO,\par
+                                  new InternetAddress(to));\par
+\par
+         // Set Subject: header field\par
+         message.setSubject("This is the Subject Line!");\par
+\par
+         // Send the actual HTML message, as big as you like\par
+         message.setContent("<h1>This is actual message</h1>",\par
+                            "text/html" );\par
+\par
+         // Send message\par
+         Transport.send(message);\par
+         System.out.println("Sent message successfully....");\par
+      \}catch (MessagingException mex) \{\par
+         mex.printStackTrace();\par
+      \}\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Compile and run this program to send an HTML email:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx4800\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 $ java SendHTMLEmail\par
+Sent message successfully....\cell\row\pard\keepn\sb100\sa100\kerning36\b\f0\fs48 Send Attachment in Email:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Here is an example to send an email with attachment from your machine. Here it is assumed that your \b localhost\b0  is connected to the internet and capable enough to send an email.\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 // File Name SendFileEmail.java\par
+\par
+import java.util.*;\par
+import javax.mail.*;\par
+import javax.mail.internet.*;\par
+import javax.activation.*;\par
+\par
+public class SendFileEmail\par
+\{\par
+   public static void main(String [] args)\par
+   \{\par
+      \par
+      // Recipient's email ID needs to be mentioned.\par
+      String to = "abcd@gmail.com";\par
+\par
+      // Sender's email ID needs to be mentioned\par
+      String from = "web@gmail.com";\par
+\par
+      // Assuming you are sending email from localhost\par
+      String host = "localhost";\par
+\par
+      // Get system properties\par
+      Properties properties = System.getProperties();\par
+\par
+      // Setup mail server\par
+      properties.setProperty("mail.smtp.host", host);\par
+\par
+      // Get the default Session object.\par
+      Session session = Session.getDefaultInstance(properties);\par
+\par
+      try\{\par
+         // Create a default MimeMessage object.\par
+         MimeMessage message = new MimeMessage(session);\par
+\par
+         // Set From: header field of the header.\par
+         message.setFrom(new InternetAddress(from));\par
+\par
+         // Set To: header field of the header.\par
+         message.addRecipient(Message.RecipientType.TO,\par
+                                  new InternetAddress(to));\par
+\par
+         // Set Subject: header field\par
+         message.setSubject("This is the Subject Line!");\par
+\par
+         // Create the message part \par
+         BodyPart messageBodyPart = new MimeBodyPart();\par
+\par
+         // Fill the message\par
+         messageBodyPart.setText("This is message body");\par
+         \par
+         // Create a multipar message\par
+         Multipart multipart = new MimeMultipart();\par
+\par
+         // Set text message part\par
+         multipart.addBodyPart(messageBodyPart);\par
+\par
+         // Part two is attachment\par
+         messageBodyPart = new MimeBodyPart();\par
+         String filename = "file.txt";\par
+         DataSource source = new FileDataSource(filename);\par
+         messageBodyPart.setDataHandler(new DataHandler(source));\par
+         messageBodyPart.setFileName(filename);\par
+         multipart.addBodyPart(messageBodyPart);\par
+\par
+         // Send the complete message parts\par
+         message.setContent(multipart );\par
+\par
+         // Send message\par
+         Transport.send(message);\par
+         System.out.println("Sent message successfully....");\par
+      \}catch (MessagingException mex) \{\par
+         mex.printStackTrace();\par
+      \}\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Compile and run this program to send an HTML email:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx4800\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 $ java SendFileEmail\par
+Sent message successfully....\cell\row\pard\keepn\sb100\sa100\kerning36\b\f0\fs48 User Authentication Part:\par
+\pard\sb100\sa100\kerning0\b0\fs24 If it is required to provide user ID and Password to the email server for authentication purpose then you can set these properties as follows:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx7360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20  props.setProperty("mail.user", "myuser");\par
+ props.setProperty("mail.password", "mypwd");\cell\row\pard\sb100\sa100\f0\fs24 Rest of the email sending mechanism would remain as explained above.\par
+\line{\field{\*\fldinst{HYPERLINK "/java/java_networking.htm"HYPERLINK "/java/java_networking.htm"HYPERLINK "/java/java_multithreading.htm"HYPERLINK "/java/java_multithreading.htm"}}{\fldrslt{}}}\f0\fs24\par
+\b Copyright \'a9 tutorialspoint.com\b0\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Java - Applets Basics\par
+\pard\sb100\sa100\kerning0\b0\fs24{\field{\*\fldinst{HYPERLINK "/java/java_multithreading.htm"HYPERLINK "/java/java_multithreading.htm"HYPERLINK "/java/java_documentation.htm"HYPERLINK "/java/java_documentation.htm"}}{\fldrslt{}}}\f0\fs24\line\line\par
+An applet is a Java program that runs in a Web browser. An applet can be a fully functional Java application because it has the entire Java API at its disposal.\par
+There are some important differences between an applet and a standalone Java application, including the following:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100 An applet is a Java class that extends the java.applet.Applet class.\par
+{\pntext\f3\'B7\tab}A main() method is not invoked on an applet, and an applet class will not define main().\par
+{\pntext\f3\'B7\tab}Applets are designed to be embedded within an HTML page.\par
+{\pntext\f3\'B7\tab}When a user views an HTML page that contains an applet, the code for the applet is downloaded to the user's machine.\par
+{\pntext\f3\'B7\tab}A JVM is required to view an applet. The JVM can be either a plug-in of the Web browser or a separate runtime environment.\par
+{\pntext\f3\'B7\tab}The JVM on the user's machine creates an instance of the applet class and invokes various methods during the applet's lifetime.\par
+{\pntext\f3\'B7\tab}Applets have strict security rules that are enforced by the Web browser. The security of an applet is often referred to as sandbox security, comparing the applet to a child playing in a sandbox with various rules that must be followed.\par
+{\pntext\f3\'B7\tab}Other classes that the applet needs can be downloaded in a single Java Archive (JAR) file.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Life Cycle of an Applet:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Four methods in the Applet class give you the framework on which you build any serious applet:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\b init:\b0  This method is intended for whatever initialization is needed for your applet. It is called after the param tags inside the applet tag have been processed.\par
+\b{\pntext\f3\'B7\tab}start:\b0  This method is automatically called after the browser calls the init method. It is also called whenever the user returns to the page containing the applet after having gone off to other pages.\par
+\b{\pntext\f3\'B7\tab}stop:\b0  This method is automatically called when the user moves off the page on which the applet sits. It can, therefore, be called repeatedly in the same applet. \par
+\b{\pntext\f3\'B7\tab}destroy:\b0  This method is only called when the browser shuts down normally. Because applets are meant to live on an HTML page, you should not normally leave resources behind after a user leaves the page that contains the applet.\par
+\b{\pntext\f3\'B7\tab}paint:\b0  Invoked immediately after the start() method, and also any time the applet needs to repaint itself in the browser. The paint() method is actually inherited from the java.awt.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 A "Hello, World" Applet:\par
+\pard\sb100\sa100\kerning0\b0\fs24 The following is a simple applet named HelloWorldApplet.java:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx7200\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 import java.applet.*;\par
+import java.awt.*;\par
+\par
+public class HelloWorldApplet extends Applet\par
+\{\par
+   public void paint (Graphics g)\par
+   \{\par
+      g.drawString ("Hello World", 25, 50);\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 These import statements bring the classes into the scope of our applet class:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100 java.applet.Applet.\par
+{\pntext\f3\'B7\tab}java.awt.Graphics.\par
+\pard\sb100\sa100 Without those import statements, the Java compiler would not recognize the classes Applet and Graphics, which the applet class refers to.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 The Applet CLASS:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Every applet is an extension of the \i java.applet.Applet class\i0 . The base Applet class provides methods that a derived Applet class may call to obtain information and services from the browser context.\par
+These include methods that do the following:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100 Get applet parameters\par
+{\pntext\f3\'B7\tab}Get the network location of the HTML file that contains the applet\par
+{\pntext\f3\'B7\tab}Get the network location of the applet class directory\par
+{\pntext\f3\'B7\tab}Print a status message in the browser\par
+{\pntext\f3\'B7\tab}Fetch an image\par
+{\pntext\f3\'B7\tab}Fetch an audio clip\par
+{\pntext\f3\'B7\tab}Play an audio clip\par
+{\pntext\f3\'B7\tab}Resize the applet\par
+\pard\sb100\sa100 Additionally, the Applet class provides an interface by which the viewer or browser obtains information about the applet and controls the applet's execution. The viewer may:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100 request information about the author, version and copyright of the applet\par
+{\pntext\f3\'B7\tab}request a description of the parameters the applet recognizes\par
+{\pntext\f3\'B7\tab}initialize the applet\par
+{\pntext\f3\'B7\tab}destroy the applet\par
+{\pntext\f3\'B7\tab}start the applet's execution\par
+{\pntext\f3\'B7\tab}stop the applet's execution\par
+\pard\sb100\sa100 The Applet class provides default implementations of each of these methods. Those implementations may be overridden as necessary.\par
+The "Hello, World" applet is complete as it stands. The only method overridden is the paint method.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Invoking an Applet:\par
+\pard\sb100\sa100\kerning0\b0\fs24 An applet may be invoked by embedding directives in an HTML file and viewing the file through an applet viewer or Java-enabled browser.\par
+The <applet> tag is the basis for embedding an applet in an HTML file. Below is an example that invokes the "Hello, World" applet:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <html>\par
+<title>The Hello, World Applet</title>\par
+<hr>\par
+<applet code="HelloWorldApplet.class" width="320" height="120">\par
+If your browser was Java-enabled, a "Hello, World"\par
+message would appear here.\par
+</applet>\par
+<hr>\par
+</html>\cell\row\pard\sb100\sa100\f0\fs24 Based on the above examples, here is the live applet example: {\field{\*\fldinst{HYPERLINK "/java/hello.htm"}}{\fldrslt{\cf1\ul Applet Example}}}\cf0\ulnone\f0\fs24 .\par
+\b Note:\b0  You can refer to {\field{\*\fldinst{HYPERLINK "/html/html_applet_tag.htm"}}{\fldrslt{\cf1\ul HTML Applet Tag}}}\cf0\ulnone\f0\fs24  to understand more about calling applet from HTML.\par
+The code attribute of the <applet> tag is required. It specifies the Applet class to run. Width and height are also required to specify the initial size of the panel in which an applet runs. The applet directive must be closed with a </applet> tag.\par
+If an applet takes parameters, values may be passed for the parameters by adding <param> tags between <applet> and </applet>. The browser ignores text and other tags between the applet tags.\par
+Non-Java-enabled browsers do not process <applet> and </applet>. Therefore, anything that appears between the tags, not related to the applet, is visible in non-Java-enabled browsers.\par
+The viewer or browser looks for the compiled Java code at the location of the document. To specify otherwise, use the codebase attribute of the <applet> tag as shown:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx8960\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <applet codebase="http://amrood.com/applets"\par
+code="HelloWorldApplet.class" width="320" height="120">\cell\row\pard\sb100\sa100\f0\fs24 If an applet resides in a package other than the default, the holding package must be specified in the code attribute using the period character (.) to separate package/class components. For example:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx8640\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <applet code="mypackage.subpackage.TestApplet.class" \par
+           width="320" height="120">\cell\row\pard\keepn\sb100\sa100\kerning36\b\f0\fs48 Getting Applet Parameters:\par
+\pard\sb100\sa100\kerning0\b0\fs24 The following example demonstrates how to make an applet respond to setup parameters specified in the document. This applet displays a checkerboard pattern of black and a second color.\par
+The second color and the size of each square may be specified as parameters to the applet within the document.\par
+CheckerApplet gets its parameters in the init() method. It may also get its parameters in the paint() method. However, getting the values and saving the settings once at the start of the applet, instead of at every refresh, is convenient and efficient.\par
+The applet viewer or browser calls the init() method of each applet it runs. The viewer calls init() once, immediately after loading the applet. (Applet.init() is implemented to do nothing.) Override the default implementation to insert custom initialization code.\par
+The Applet.getParameter() method fetches a parameter given the parameter's name (the value of a parameter is always a string). If the value is numeric or other non-character data, the string must be parsed.\par
+The following is a skeleton of CheckerApplet.java:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx8640\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 import java.applet.*;\par
+import java.awt.*;\par
+public class CheckerApplet extends Applet\par
+\{\par
+   int squareSize = 50;// initialized to default size\par
+   public void init () \{\}\par
+   private void parseSquareSize (String param) \{\}\par
+   private Color parseColor (String param) \{\}\par
+   public void paint (Graphics g) \{\}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Here are CheckerApplet's init() and private parseSquareSize() methods:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9120\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 public void init ()\par
+\{\par
+   String squareSizeParam = getParameter ("squareSize");\par
+   parseSquareSize (squareSizeParam);\par
+   String colorParam = getParameter ("color");\par
+   Color fg = parseColor (colorParam);\par
+   setBackground (Color.black);\par
+   setForeground (fg);\par
+\}\par
+private void parseSquareSize (String param)\par
+\{\par
+   if (param == null) return;\par
+   try \{\par
+      squareSize = Integer.parseInt (param);\par
+   \}\par
+   catch (Exception e) \{\par
+     // Let default value remain\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 The applet calls parseSquareSize() to parse the squareSize parameter. parseSquareSize() calls the library method Integer.parseInt(), which parses a string and returns an integer. Integer.parseInt() throws an exception whenever its argument is invalid.\par
+Therefore, parseSquareSize() catches exceptions, rather than allowing the applet to fail on bad input.\par
+The applet calls parseColor() to parse the color parameter into a Color value. parseColor() does a series of string comparisons to match the parameter value to the name of a predefined color. You need to implement these methods to make this applet works.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Specifying Applet Parameters:\par
+\pard\sb100\sa100\kerning0\b0\fs24 The following is an example of an HTML file with a CheckerApplet embedded in it. The HTML file specifies both parameters to the applet by means of the <param> tag.\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <html>\par
+<title>Checkerboard Applet</title>\par
+<hr>\par
+<applet code="CheckerApplet.class" width="480" height="320">\par
+<param name="color" value="blue">\par
+<param name="squaresize" value="30">\par
+</applet>\par
+<hr>\par
+</html>\cell\row\pard\sb100\sa100\b\f0\fs24 Note:\b0  Parameter names are not case sensitive.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Application Conversion to Applets:\par
+\pard\sb100\sa100\kerning0\b0\fs24 It is easy to convert a graphical Java application (that is, an application that uses the AWT and that you can start with the java program launcher) into an applet that you can embed in a web page.\par
+Here are the specific steps for converting an application to an applet.\par
+\pard\fi-360\li720\sb100\sa100\tx720 Make an HTML page with the appropriate tag to load the applet code.\par
+Supply a subclass of the JApplet class. Make this class public. Otherwise, the applet cannot be loaded.\par
+Eliminate the main method in the application. Do not construct a frame window for the application. Your application will be displayed inside the browser.\par
+Move any initialization code from the frame window constructor to the init method of the applet. You don't need to explicitly construct the applet object.the browser instantiates it for you and calls the init method.\par
+Remove the call to setSize; for applets, sizing is done with the width and height parameters in the HTML file.\par
+Remove the call to setDefaultCloseOperation. An applet cannot be closed; it terminates when the browser exits.\par
+If the application calls setTitle, eliminate the call to the method. Applets cannot have title bars. (You can, of course, title the web page itself, using the HTML title tag.)\par
+Don't call setVisible(true). The applet is displayed automatically.\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Event Handling:\par
+\pard\sb100\sa100\kerning0\b0\fs24 Applets inherit a group of event-handling methods from the Container class. The Container class defines several methods, such as processKeyEvent and processMouseEvent, for handling particular types of events, and then one catch-all method called processEvent.\par
+Inorder to react an event, an applet must override the appropriate event-specific method.\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx8640\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 import java.awt.event.MouseListener;\par
+import java.awt.event.MouseEvent;\par
+import java.applet.Applet;\par
+import java.awt.Graphics;\par
+\par
+\par
+public class ExampleEventHandling extends Applet \par
+\tab\tab\tab  implements MouseListener \{\par
+\par
+    StringBuffer strBuffer;\par
+\par
+    public void init() \{\par
+\tab addMouseListener(this);\par
+\tab strBuffer = new StringBuffer();\par
+        addItem("initializing the apple ");\par
+    \}\par
+\par
+    public void start() \{\par
+        addItem("starting the applet ");\par
+    \}\par
+\par
+    public void stop() \{\par
+        addItem("stopping the applet ");\par
+    \}\par
+\par
+    public void destroy() \{\par
+        addItem("unloading the applet");\par
+    \}\par
+\par
+    void addItem(String word) \{\par
+        System.out.println(word);\par
+        strBuffer.append(word);\par
+        repaint();\par
+    \}\par
+\par
+    public void paint(Graphics g) \{\par
+\tab //Draw a Rectangle around the applet's display area.\par
+        g.drawRect(0, 0, \par
+\tab\tab    getWidth() - 1,\par
+\tab\tab    getHeight() - 1);\par
+\par
+\tab //display the string inside the rectangle.\par
+        g.drawString(strBuffer.toString(), 10, 20);\par
+    \}\par
+\par
+   \par
+    public void mouseEntered(MouseEvent event) \{\par
+    \}\par
+    public void mouseExited(MouseEvent event) \{\par
+    \}\par
+    public void mousePressed(MouseEvent event) \{\par
+    \}\par
+    public void mouseReleased(MouseEvent event) \{\par
+    \}\par
+\par
+    public void mouseClicked(MouseEvent event) \{\par
+\tab addItem("mouse clicked! ");\par
+    \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Now let us call this applet as follows:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx6880\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <html>\par
+<title>Event Handling</title>\par
+<hr>\par
+<applet code="ExampleEventHandling.class" \par
+width="300" height="300">\par
+</applet>\par
+<hr>\par
+</html>\cell\row\pard\sb100\sa100\f0\fs24 Initially the applet will display "initializing the applet. Starting the applet." Then once you click inside the rectangle "mouse clicked" will be displayed as well.\par
+Based on the above examples, here is the live applet example: {\field{\*\fldinst{HYPERLINK "/java/event.htm"}}{\fldrslt{\cf1\ul Applet Example}}}\cf0\ulnone\f0\fs24 .\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Displaying Images:\par
+\pard\sb100\sa100\kerning0\b0\fs24 An applet can display images of the format GIF, JPEG, BMP, and others. To display an image within the applet, you use the drawImage() method found in the java.awt.Graphics class.\par
+Following is the example showing all the steps to show images:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 import java.applet.*;\par
+import java.awt.*;\par
+import java.net.*;\par
+public class ImageDemo extends Applet\par
+\{\par
+  private Image image;\par
+  private AppletContext context;\par
+  public void init()\par
+  \{\par
+      context = this.getAppletContext();\par
+      String imageURL = this.getParameter("image");\par
+      if(imageURL == null)\par
+      \{\par
+         imageURL = "java.jpg";\par
+      \}\par
+      try\par
+      \{\par
+         URL url = new URL(this.getDocumentBase(), imageURL);\par
+         image = context.getImage(url);\par
+      \}catch(MalformedURLException e)\par
+      \{\par
+         e.printStackTrace();\par
+         // Display in browser status bar\par
+         context.showStatus("Could not load image!");\par
+      \}\par
+   \}\par
+   public void paint(Graphics g)\par
+   \{\par
+      context.showStatus("Displaying image");\par
+      g.drawImage(image, 0, 0, 200, 84, null);\par
+      g.drawString("www.javalicense.com", 35, 100);\par
+   \}  \par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Now let us call this applet as follows:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9120\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <html>\par
+<title>The ImageDemo applet</title>\par
+<hr>\par
+<applet code="ImageDemo.class" width="300" height="200">\par
+<param name="image" value="java.jpg">\par
+</applet>\par
+<hr>\par
+</html>\cell\row\pard\sb100\sa100\f0\fs24 Based on the above examples, here is the live applet example: {\field{\*\fldinst{HYPERLINK "/java/ImageDemo.htm"}}{\fldrslt{\cf1\ul Applet Example}}}\cf0\ulnone\f0\fs24 .\par
+\pard\keepn\sb100\sa100\kerning36\b\fs48 Playing Audio:\par
+\pard\sb100\sa100\kerning0\b0\fs24 An applet can play an audio file represented by the AudioClip interface in the java.applet package. The AudioClip interface has three methods, including:\par
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\b public void play():\b0  Plays the audio clip one time, from the beginning.\par
+\b{\pntext\f3\'B7\tab}public void loop():\b0  Causes the audio clip to replay continually.\par
+\b{\pntext\f3\'B7\tab}public void stop():\b0  Stops playing the audio clip.\par
+\pard\sb100\sa100 To obtain an AudioClip object, you must invoke the getAudioClip() method of the Applet class. The getAudioClip() method returns immediately, whether or not the URL resolves to an actual audio file. The audio file is not downloaded until an attempt is made to play the audio clip.\par
+Following is the example showing all the steps to play an audio:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx9360\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 import java.applet.*;\par
+import java.awt.*;\par
+import java.net.*;\par
+public class AudioDemo extends Applet\par
+\{\par
+   private AudioClip clip;\par
+   private AppletContext context;\par
+   public void init()\par
+   \{\par
+      context = this.getAppletContext();\par
+      String audioURL = this.getParameter("audio");\par
+      if(audioURL == null)\par
+      \{\par
+         audioURL = "default.au";\par
+      \}\par
+      try\par
+      \{\par
+         URL url = new URL(this.getDocumentBase(), audioURL);\par
+         clip = context.getAudioClip(url);\par
+      \}catch(MalformedURLException e)\par
+      \{\par
+         e.printStackTrace();\par
+         context.showStatus("Could not load audio file!");\par
+      \}\par
+   \}\par
+   public void start()\par
+   \{\par
+      if(clip != null)\par
+      \{\par
+         clip.loop();\par
+      \}\par
+   \}\par
+   public void stop()\par
+   \{\par
+      if(clip != null)\par
+      \{\par
+         clip.stop();\par
+      \}\par
+   \}\par
+\}\cell\row\pard\sb100\sa100\f0\fs24 Now let us call this applet as follows:\par
+\trowd\trgaph120\trpaddl120\trpaddr120\trpaddfl3\trpaddfr3
+\clvertalc\cellx8480\pard\intbl\tx0\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 <html>\par
+<title>The ImageDemo applet</title>\par
+<hr>\par
+<applet code="ImageDemo.class" width="0" height="0">\par
+<param name="audio" value="test.wav">\par
+</applet>\par
+<hr>\par
+</html>\cell\row\pard\sb100\sa100\f0\fs24 You can use your test.wav at your PC to test the above example.\par
+\line{\field{\*\fldinst{HYPERLINK "/java/java_multithreading.htm"HYPERLINK "/java/java_multithreading.htm"HYPERLINK "/java/java_documentation.htm"HYPERLINK "/java/java_documentation.htm"}}{\fldrslt{}}}\f0\fs24\par
+\pard\sa200\sl276\slmult1\lang9\f2\fs22\par
+}
+ 
