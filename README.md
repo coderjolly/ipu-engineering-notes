@@ -29,7 +29,7 @@ $ git remote -v
 origin  https://github.com/Your_Username/IPU-Engineering-Notes.git (fetch)
 origin  https://github.com/Your_Username/IPU-Engineering-Notes.git (push)
 ```
-Now, lets add a reference to the original [IPU-Engineering-Notes](https://github.com/Coderjolly/IPU_Engineering_Material) repository using
+Now, lets add a reference to the original [IPU-Engineering-Notes](https://github.com/Coderjolly/IPU_Engineering_Notes) repository using
 ```sh
 $ git remote add upstream https://github.com/Coderjolly/IPU-Engineering-Notes.git
 ```
