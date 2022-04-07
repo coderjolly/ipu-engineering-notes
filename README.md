@@ -5,20 +5,20 @@ So, we are developing a repository and trying to implement it for all semesters 
 ## Steps to follow :scroll:
 
 ### 1. Fork it :fork_and_knife:
-You can get your own fork/copy of [IPU-Engineering-Notes](https://github.com/CoderJolly/IPU-Engineering-Notes) by using the <a href="https://github.com/CoderJolly/IPU_Engineering_Material/new/master?readme=1#fork-destination-box"><kbd><b>Fork</b></kbd></a> button or clicking [this](https://github.com/CoderJolly/IPU-Engineering-Notes/new/master?readme=1#fork-destination-box).
- [![Fork Button](https://help.github.com/assets/images/help/repository/fork_button.jpg)](https://github.com/CoderJolly/IPU-Engineering-Notes)
+You can get your own fork/copy of [ipu-engineering-notes](https://github.com/coderjolly/ipu-engineering-notes) by using the <a href="https://github.com/coderjolly/ipu-engineering-notes/new/master?readme=1#fork-destination-box"><kbd><b>Fork</b></kbd></a> button or clicking [this](https://github.com/coderjolly/ipu-engineering-notes/new/master?readme=1#fork-destination-box).
+ [![Fork Button](https://help.github.com/assets/images/help/repository/fork_button.jpg)](https://github.com/coderjolly/ipu-engineering-notes)
  
  
 ### 2. Clone it :busts_in_silhouette:
 You need to clone (download) it to local machine using
 ```sh
-$ git clone https://github.com/Your_Username/IPU-Engineering-Notes.git
+$ git clone https://github.com/Your_Username/ipu-engineering-notes.git
 ```
 > This makes a local copy of repository in your machine.
-Once you have cloned the `IPU-Engineering-Notes` repository in Github, move to that folder first using change directory command on linux and Mac.
+Once you have cloned the `ipu-engineering-notes` repository in Github, move to that folder first using change directory command on linux and Mac.
 ```sh
 # This will change directory to a folder IPU-Engineering-Notes
-$ cd IPU-Engineering-Notes
+$ cd ipu-engineering-notes
 ```
 Move to this folder for all other commands.
 
@@ -26,10 +26,10 @@ Move to this folder for all other commands.
 Run the following commands to see that *your local copy* has a reference to *your forked remote repository* in Github :octocat:
 ```sh
 $ git remote -v
-origin  https://github.com/Your_Username/IPU-Engineering-Notes.git (fetch)
-origin  https://github.com/Your_Username/IPU-Engineering-Notes.git (push)
+origin  https://github.com/Your_Username/ipu-engineering-notes.git (fetch)
+origin  https://github.com/Your_Username/ipu-engineering-notes.git (push)
 ```
-Now, lets add a reference to the original [IPU-Engineering-Notes](https://github.com/Coderjolly/IPU_Engineering_Notes) repository using
+Now, lets add a reference to the original [ipu-engineering-notes](https://github.com/coderjolly/ipu-engineering-notes) repository using
 ```sh
 $ git remote add upstream https://github.com/Coderjolly/IPU-Engineering-Notes.git
 ```
@@ -37,10 +37,10 @@ $ git remote add upstream https://github.com/Coderjolly/IPU-Engineering-Notes.gi
 See the changes using
 ```sh
 $ git remote -v
-origin    https://github.com/Your_Username/IPU-Engineering-Notes.git (fetch)
-origin    https://github.com/Your_Username/IPU-Engineering-Notes.git (push)
-upstream  https://github.com/Coderjolly/IPU-Engineering-Notes.git (fetch)
-upstream  https://github.com/Coderjolly/IPU-Engineering-Notes.git (push)
+origin    https://github.com/Your_Username/ipu-engineering-notes.git (fetch)
+origin    https://github.com/Your_Username/ipu-engineering-notes.git (push)
+upstream  https://github.com/coderjolly/ipu-engineering-notes.git (fetch)
+upstream  https://github.com/coderjolly/ipu-engineering-notes.git (push)
 ```
 
 ### 4. Ready Steady Go... :turtle: :rabbit2:
